@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced ML/DL Pipeline Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Components</h2>
+            <div class="menu-item">
+                <h3>Imputation</h3>
+                <div class="sub-items">
+                    <div class="component" draggable="true" data-type="MeanImputer">MeanImputer</div>
+                    <div class="component" draggable="true" data-type="MedianImputer">MedianImputer</div>
+                    <div class="component" draggable="true" data-type="KNNImputer">KNNImputer</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <h3>Encoding</h3>
+                <div class="sub-items">
+                    <div class="component" draggable="true" data-type="LabelEncoder">LabelEncoder</div>
+                    <div class="component" draggable="true" data-type="OneHotEncoder">OneHotEncoder</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <h3>Preprocessing</h3>
+                <div class="sub-items">
+                    <div class="component" draggable="true" data-type="StandardScaler">StandardScaler</div>
+                    <div class="component" draggable="true" data-type="MinMaxScaler">MinMaxScaler</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <h3>Feature Selection</h3>
+                <div class="sub-items">
+                    <div class="component" draggable="true" data-type="SelectKBest">SelectKBest</div>
+                </div>
+            </div>
+            <div class="menu-item" id="models-menu">
+                <h3>Models</h3>
+                <div class="sub-items" id="model-sub-items"></div>
+            </div>
+        </div>
+
+        <!-- Main View -->
+        <div class="main-view">
+            <h1>ML/DL Pipeline Builder</h1>
+            
+            <!-- Data Upload and Task Setup -->
+            <div class="setup-section">
+                <input type="file" id="dataFile" accept=".csv">
+                <button id="uploadButton">Upload Data</button>
+                <label>Task Type:</label>
+                <select id="taskType">
+                    <option value="classification">Classification</option>
+                    <option value="regression">Regression</option>
+                </select>
+                <label>Target Features (hold Ctrl/Cmd to select multiple):</label>
+                <select id="targetFeature" multiple size="5"></select>
+                <button id="setTaskButton">Set Task</button>
+            </div>
+
+            <!-- Data Summary -->
+            <div id="dataSummary" class="data-summary"></div>
+            <div id="heatmap" class="heatmap"></div>
+
+            <!-- Pipeline Building -->
+            <div class="pipeline-section">
+                <h2>Pipeline</h2>
+                <div class="pipeline" id="pipeline"></div>
+                <button id="trainButton">Train Pipeline</button>
+                <button id="savePipeline">Save Pipeline</button>
+                <button id="loadPipeline">Load Pipeline</button>
+            </div>
+
+            <!-- Results -->
+            <div class="results" id="results">
+                <h2>Results</h2>
+                <div id="metrics"></div>
+                <div id="plot"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
